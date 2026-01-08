@@ -161,9 +161,17 @@ textarea {
 }
 
 /* Footer */
+
 .footer-info {
   margin-top: auto;
   padding: 20px;
+  font-size: 0.8rem;
+  text-align: center;
+  color: #7e7a7a;
+}
+
+.pow-by {
+  margin-top: 10px;
   font-size: 0.8rem;
   text-align: center;
   color: #7e7a7a;

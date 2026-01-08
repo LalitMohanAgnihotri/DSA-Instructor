@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DSA Instructor</title>
     <link rel="stylesheet" href="DSAChatBoat.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="dashboard">
-        <div class="sidebar">
-            <div class="logo">DSA MENTOR</div>
+      <div class="sidebar">
+        <div class="logo">DSA MENTOR</div>
 
-            <a class="nav-link new-chat" onclick="newChat()">+ New Chat</a>
-            <a class="nav-link">Dashboard</a>
-            <a class="nav-link">History</a>
-            <a class="nav-link">Settings</a>
+        <a class="nav-link new-chat" onclick="newChat()">+ New Chat</a>
+        <a class="nav-link">Dashboard</a>
+        <a class="nav-link">History</a>
+        <a class="nav-link">Settings</a>
 
-            <div class="footer-info">
-                Powered by Gemini AI • DSA Specialist v2.5
-            </div>
+        <div class="footer-info">
+         
         </div>
-
-        <div class="main-content">
-            <div class="content-container">
-                <div class="instructor-feed" id="feed">
-                    <div class="instructor-feed" id="feed">
-                        <div class="system-msg main-text" id="greeting">
-                            Hello, how can I help you related to DSA?
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="input-card">
-                    <textarea id="user-input" placeholder="Enter your DSA problem here..."></textarea>
-                    <button class="btn" onclick="askAI()">Ask Coding Instructor</button>
-                </div>
-            </div>
+        <div class="footer-info">
+         Lalit Mohan Agnihotri. All rights reserved   © 2026.
+         <div class="pow-by">Powered by Gemini AI • DSA Specialist v2.5 </div>
         </div>
+      </div>
+
+      <div class="main-content">
+        <div class="content-container">
+          <div class="instructor-feed" id="feed">
+            <div class="instructor-feed" id="feed">
+              <div class="system-msg main-text" id="greeting">
+                Hello, how can I help you related to DSA?
+              </div>
+            </div>
+          </div>
+
+          <div class="input-card">
+            <textarea
+              id="user-input"
+              placeholder="Enter your DSA problem here..."
+            ></textarea>
+            <button class="btn" onclick="askAI()">Ask Coding Instructor</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="DSAChatBoat.js"></script>
-</body>
-
+  </body>
 </html>

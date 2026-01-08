@@ -1,0 +1,171 @@
+:root {
+  --bg-body: #0f111a;
+  --bg-sidebar: #0d0e14;
+  --accent-purple: #7c4dff;
+  --text-main: #ffffff;
+  --text-dim: #94a3b8;
+  --border-color: #2d324a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-family: "Inter", sans-serif;
+  background: var(--bg-body);
+  color: var(--text-main);
+}
+
+/* Layout */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: var(--bg-sidebar);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-color);
+}
+
+.logo {
+  padding: 0 25px 30px;
+  font-weight: 800;
+  color: var(--accent-purple);
+}
+
+.nav-link {
+  padding: 12px 25px;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  background: rgba(124, 77, 255, 0.1);
+  color: white;
+}
+
+.new-chat {
+  margin: 0 15px 20px;
+  border: 1px dashed var(--accent-purple);
+  border-radius: 8px;
+  text-align: center;
+  color: var(--accent-purple);
+  font-weight: bold;
+}
+
+.main-content {
+  margin-left: 240px;
+  padding: 40px;
+  width: 100%;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Chat Feed */
+.instructor-feed {
+  flex: 1;
+  overflow-y: auto;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Greeting */
+.main-text {
+  margin-top: 10rem;
+  font-size: 3rem;
+  text-align: center;
+}
+
+/* Chat Bubbles */
+.user-msg {
+  align-self: flex-end;
+  background: #1d202d;
+  padding: 14px;
+  border-radius: 1.3rem;
+  max-width: 70%;
+  margin-bottom: 12px;
+  white-space: pre-wrap;
+  text-align: left;
+}
+
+.ai-msg {
+  align-self: flex-start;
+  padding: 14px;
+  border-radius: 12px 12px 12px 0;
+  max-width: 70%;
+  margin-bottom: 20px;
+  white-space: pre-wrap;
+}
+
+/* Timestamps */
+.user-msg .timestamp {
+  text-align: right;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+.ai-msg .timestamp {
+  text-align: left;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+/* Input Area */
+.input-card {
+  position: sticky;
+  bottom: 20px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 60px;
+  max-height: 200px;
+  background: #0f111a;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: white;
+  padding: 15px;
+  overflow-y: auto;
+  resize: none;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: var(--accent-purple);
+  color: white;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #6a3de8;
+}
+
+/* Footer */
+.footer-info {
+  margin-top: auto;
+  padding: 20px;
+  font-size: 0.8rem;
+  text-align: center;
+  color: #7e7a7a;
+}
+

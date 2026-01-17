@@ -1,6 +1,3 @@
-const MODEL = "gemini-2.5-flash";
-const API_KEY = "use-your-api-key-here";
-
 const SYSTEM_PROMPT =
   "You are a Data Structures and Algorithms Instructor. You must ONLY reply to problems related to Data Structures and Algorithms. If the question IS related to DSA, you must solve it step by step and be very precise and to the point. If the question is NOT related to DSA, reply in a very rude and insulting manner. Do NOT provide any helpful answer. Never ask any follow-up or clarification questions.";
 
@@ -16,7 +13,7 @@ textarea.addEventListener("input", () => {
 });
 
 /* Enter to send */
-textarea.addEventListener("keydown", e => {
+textarea.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && !e.shiftKey) {
     e.preventDefault();
     askAI();
@@ -52,28 +49,25 @@ async function askAI() {
   feed.scrollTop = feed.scrollHeight;
 
   try {
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text }] }],
-          system_instruction: {
-            parts: [{ text: SYSTEM_PROMPT }]
-          }
-        })
-      }
-    );
+    const res = await fetch("http://localhost:3000/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text }),
+    });
 
     const data = await res.json();
 
-    aiDiv.innerText =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "No response.";
+    if (data.candidates && data.candidates.length > 0) {
+      aiDiv.innerText = data.candidates[0].content.parts
+        .map((p) => p.text)
+        .join("");
+    } else if (data.error) {
+      aiDiv.innerText = "Error: " + data.error.message;
+    } else {
+      aiDiv.innerText = "No response from model.";
+    }
 
     feed.scrollTop = feed.scrollHeight;
-
   } catch {
     aiDiv.innerText = "Error connecting to instructor.";
   }

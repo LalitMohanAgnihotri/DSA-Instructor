@@ -9,17 +9,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-/* Optional health check */
-app.get("/", (req, res) => {
-  res.send("DSA Instructor API is running 🚀");
-});
-
 app.post("/api/chat", async (req, res) => {
-  const { text } = req.body;
+  const userText = req.body.text;
 
   try {
+    
     const body = {
-      contents: [{ parts: [{ text }] }]
+      contents: [{ parts: [{ text: userText }] }]
     };
 
     if (process.env.SYSTEM_PROMPT) {
@@ -28,6 +24,7 @@ app.post("/api/chat", async (req, res) => {
       };
     }
 
+    
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
@@ -37,7 +34,10 @@ app.post("/api/chat", async (req, res) => {
       }
     );
 
+   
     const data = await response.json();
+
+    
     res.json(data);
 
   } catch (err) {
@@ -46,7 +46,6 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Backend running on port ${PORT}`);
+app.listen(3000, () => {
+  console.log("Backend running at http://localhost:3000");
 });

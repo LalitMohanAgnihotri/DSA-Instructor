@@ -24,54 +24,30 @@ async function askAI() {
   const text = textarea.value.trim();
   if (!text) return;
 
-  /* Remove greeting on first message */
-  if (!chatStarted) {
-    const greeting = document.getElementById("greeting");
-    if (greeting) greeting.remove();
-    chatStarted = true;
-  }
-
-  textarea.value = "";
-  textarea.style.height = "60px";
-
-  /* USER MESSAGE */
-  const userDiv = document.createElement("div");
-  userDiv.className = "user-msg";
-  userDiv.innerText = text;
-  feed.appendChild(userDiv);
-
-  /* AI PLACEHOLDER */
-  const aiDiv = document.createElement("div");
-  aiDiv.className = "ai-msg";
-  aiDiv.innerText = "Processing...";
-  feed.appendChild(aiDiv);
-
-  feed.scrollTop = feed.scrollHeight;
-
   try {
-    const res = await fetch("https://dsa-instructor-oexl.onrender.com/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text }),
-    });
+    const res = await fetch(
+      "https://dsa-instructor-oexl.onrender.com/api/chat",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text })
+      }
+    );
 
     const data = await res.json();
 
-    if (data.candidates && data.candidates.length > 0) {
+    if (data.candidates?.length) {
       aiDiv.innerText = data.candidates[0].content.parts
-        .map((p) => p.text)
+        .map(p => p.text)
         .join("");
-    } else if (data.error) {
-      aiDiv.innerText = "Error: " + data.error.message;
     } else {
       aiDiv.innerText = "No response from model.";
     }
-
-    feed.scrollTop = feed.scrollHeight;
   } catch {
     aiDiv.innerText = "Error connecting to instructor.";
   }
 }
+
 
 /* Reset chat */
 function newChat() {

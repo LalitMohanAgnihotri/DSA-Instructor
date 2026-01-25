@@ -6,6 +6,8 @@ const sidebar = document.getElementById("sidebar");
 const hamburger = document.getElementById("hamburger");
 
 let isStreaming = false;
+sendBtn.addEventListener("click", askAI);
+
 
 /* Auto-resize textarea */
 textarea.addEventListener("input", () => {

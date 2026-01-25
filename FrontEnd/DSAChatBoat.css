@@ -126,7 +126,17 @@ html, body {
   white-space: pre-wrap;
 }
 
+.user-msg {
+  align-self: flex-end;
+  /* background: #1d202d; */
+  border-radius: 18px;
+}
 
+.ai-msg {
+  align-self: flex-start;
+  /* background: #161925; */
+  border-radius: 18px 18px 18px 4px;
+}
 
 /* Input */
 .input-card {

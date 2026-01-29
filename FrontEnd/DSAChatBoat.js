@@ -10,7 +10,8 @@ const newChatBtn = document.getElementById("newChatBtn");
 const sidebar = document.getElementById("sidebar");
 const hamburger = document.getElementById("hamburger");
 
-const BACKEND_URL = "http://localhost:3000/api/chat";
+const BACKEND_URL = "https://dsachatboat-backend.onrender.com/api/chat";
+
 
 // local dev: 
 

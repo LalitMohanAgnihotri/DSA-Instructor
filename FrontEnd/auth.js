@@ -1,5 +1,5 @@
-const API_URL = "http://localhost:3000/api/auth";
-// during local dev you can use http://localhost:3000
+const API_URL = "https://dsachatboat-backend.onrender.com/api/auth";
+
 
 async function signup() {
   const email = document.getElementById("email").value.trim();

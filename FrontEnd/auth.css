@@ -1,0 +1,90 @@
+:root {
+  --bg: #0f111a;
+  --card: #161925;
+  --accent: #7c4dff;
+  --text: #ffffff;
+  --muted: #94a3b8;
+  --border: #2d324a;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+}
+
+.auth-container {
+  width: 360px;
+  background: var(--card);
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(0,0,0,0.4);
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: white;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #6a3de8;
+}
+
+.switch {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 0.9rem;
+}
+
+.switch a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.error {
+  margin-top: 12px;
+  color: #ff6b6b;
+  text-align: center;
+  font-size: 0.85rem;
+}

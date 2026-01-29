@@ -1,3 +1,8 @@
+/* 🔐 Protect page */
+if (!localStorage.getItem("token")) {
+  window.location.href = "login.html";
+}
+
 const feed = document.getElementById("feed");
 const textarea = document.getElementById("user-input");
 const sendBtn = document.getElementById("sendBtn");
@@ -5,9 +10,12 @@ const newChatBtn = document.getElementById("newChatBtn");
 const sidebar = document.getElementById("sidebar");
 const hamburger = document.getElementById("hamburger");
 
+const BACKEND_URL = "http://localhost:3000/api/chat";
+
+// local dev: 
+
 let isStreaming = false;
 sendBtn.addEventListener("click", askAI);
-
 
 /* Auto-resize textarea */
 textarea.addEventListener("input", () => {
@@ -23,13 +31,12 @@ textarea.addEventListener("keydown", e => {
   }
 });
 
-/* Toggle sidebar */
+/* Sidebar toggle */
 hamburger.addEventListener("click", e => {
   e.stopPropagation();
   sidebar.classList.toggle("open");
 });
 
-/* Close sidebar when clicking outside (mobile only) */
 document.addEventListener("click", e => {
   if (
     window.innerWidth <= 768 &&
@@ -50,7 +57,6 @@ newChatBtn.addEventListener("click", () => {
   `;
   textarea.value = "";
   textarea.style.height = "auto";
-  sidebar.classList.remove("open");
 });
 
 /* Streaming effect */
@@ -70,7 +76,7 @@ function streamText(el, text) {
   }, 18);
 }
 
-/* Ask AI */
+/* Ask AI (via YOUR backend) */
 async function askAI() {
   if (isStreaming) return;
 
@@ -79,7 +85,6 @@ async function askAI() {
 
   textarea.value = "";
   textarea.style.height = "auto";
-
   document.getElementById("greeting")?.remove();
 
   const userMsg = document.createElement("div");
@@ -91,28 +96,22 @@ async function askAI() {
   aiMsg.className = "ai-msg";
   aiMsg.textContent = "Typing…";
   feed.appendChild(aiMsg);
-
   feed.scrollTop = feed.scrollHeight;
 
   try {
-    const res = await fetch(
-      "https://dsa-instructor-oexl.onrender.com/api/chat",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text })
-      }
-    );
+    const res = await fetch(BACKEND_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({ text })
+    });
 
     const data = await res.json();
-    const output =
-      data?.candidates?.[0]?.content?.parts
-        ?.map(p => p.text)
-        .join("") || "No response from instructor.";
-
-    streamText(aiMsg, output);
+    streamText(aiMsg, data.answer || "No response.");
   } catch {
-    aiMsg.textContent = "Error connecting to instructor.";
+    aiMsg.textContent = "Error connecting to server.";
     isStreaming = false;
   }
 }

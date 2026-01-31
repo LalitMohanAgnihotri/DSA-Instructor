@@ -20,7 +20,10 @@ async function signup() {
       return;
     }
 
-    window.location.href = "login.html";
+    // ✅ Auto login
+    localStorage.setItem("token", data.token);
+    window.location.href = "index.html";
+
   } catch {
     error.textContent = "Server not reachable";
   }

@@ -5,7 +5,7 @@ import User from "../models/User.js";
 
 const router = express.Router();
 
-/* SIGNUP */
+/* 🔹 SIGNUP */
 router.post("/signup", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -22,13 +22,19 @@ router.post("/signup", async (req, res) => {
       password: hashedPassword
     });
 
-    res.status(201).json({ message: "Signup successful" });
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    res.status(201).json({ token });
   } catch (err) {
     res.status(500).json({ message: "Signup failed" });
   }
 });
 
-/* LOGIN */
+/* 🔹 LOGIN */
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;

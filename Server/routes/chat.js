@@ -5,17 +5,18 @@ import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
+/* 🔹 POST: Ask AI */
 router.post("/", authMiddleware, async (req, res) => {
   const { text } = req.body;
 
   try {
     const body = {
-      contents: [{ parts: [{ text }] }]
+      contents: [{ parts: [{ text }] }],
     };
 
     if (process.env.SYSTEM_PROMPT) {
       body.system_instruction = {
-        parts: [{ text: process.env.SYSTEM_PROMPT }]
+        parts: [{ text: process.env.SYSTEM_PROMPT }],
       };
     }
 
@@ -24,7 +25,7 @@ router.post("/", authMiddleware, async (req, res) => {
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
       }
     );
 
@@ -38,14 +39,26 @@ router.post("/", authMiddleware, async (req, res) => {
     await Chat.create({
       userId: req.userId,
       question: text,
-      answer
+      answer,
     });
 
     res.json({ answer });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "AI request failed" });
+  }
+});
+
+/* 🔹 GET: Chat history */
+router.get("/history", authMiddleware, async (req, res) => {
+  try {
+    const chats = await Chat.find({ userId: req.userId })
+      .sort({ createdAt: -1 })
+      .limit(20);
+
+    res.json(chats);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to load history" });
   }
 });
 

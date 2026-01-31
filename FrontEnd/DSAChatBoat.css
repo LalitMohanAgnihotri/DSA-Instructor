@@ -204,3 +204,28 @@ textarea {
     max-width: 100%;
   }
 }
+#historyList {
+  padding: 0 12px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.history-item {
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.history-item:hover {
+  background: rgba(124, 77, 255, 0.15);
+  color: white;
+}
+.sidebar {
+  pointer-events: auto;
+}
+.main-content {
+  pointer-events: auto;
+}

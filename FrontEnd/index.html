@@ -1,54 +1,57 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DSA Instructor</title>
-  <link rel="stylesheet" href="DSAChatBoat.css" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DSA Instructor</title>
+    <link rel="stylesheet" href="DSAChatBoat.css" />
+  </head>
 
-<body>
-  <div class="dashboard">
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-      <div class="logo">DSA MENTOR</div>
+  <body>
+    <div class="dashboard">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="logo">DSA MENTOR</div>
 
-      <button class="nav-link new-chat" id="newChatBtn">+ New Chat</button>
-      <div class="nav-link">Dashboard</div>
-      <div class="nav-link">History</div>
-      <div class="nav-link">Settings</div>
+        <button class="nav-link new-chat" id="newChatBtn">+ New Chat</button>
+        <div class="nav-link">Dashboard</div>
+        
+        <div class="nav-link" id="historyBtn">History</div>
+        <div id="historyList" style="display: none"></div>
+        <button class="nav-link" id="logoutBtn">Logout</button>
+        <div class="nav-link">Settings</div>
 
-      <div class="footer-info">
-        Lalit Mohan Agnihotri © 2026
-        <div class="pow-by">Powered by Gemini AI • DSA Specialist</div>
-      </div>
-    </aside>
+        <div class="footer-info">
+          Lalit Mohan Agnihotri © 2026
+          <div class="pow-by">Powered by Gemini AI • DSA Specialist</div>
+        </div>
+      </aside>
 
-    <!-- Main -->
-    <main class="main-content">
-      <header class="mobile-header">
-        <button class="hamburger" id="hamburger">☰</button>
-        <span class="mobile-title">DSA Mentor</span>
-      </header>
+      <!-- Main -->
+      <main class="main-content">
+        <header class="mobile-header">
+          <button class="hamburger" id="hamburger">☰</button>
+          <span class="mobile-title">DSA Mentor</span>
+        </header>
 
-      <section class="content-container">
-        <div class="instructor-feed" id="feed">
-          <div class="system-msg main-text" id="greeting">
-            Hello, how can I help you related to DSA?
+        <section class="content-container">
+          <div class="instructor-feed" id="feed">
+            <div class="system-msg main-text" id="greeting">
+              Hello, how can I help you related to DSA?
+            </div>
           </div>
-        </div>
 
-        <div class="input-card">
-          <textarea
-            id="user-input"
-            placeholder="Enter your DSA problem here..."
-          ></textarea>
-          <button class="btn" id="sendBtn">Ask Coding Instructor</button>
-        </div>
-      </section>
-    </main>
-  </div>
+          <div class="input-card">
+            <textarea
+              id="user-input"
+              placeholder="Enter your DSA problem here..."
+            ></textarea>
+            <button class="btn" id="sendBtn">Ask Coding Instructor</button>
+          </div>
+        </section>
+      </main>
+    </div>
 
-  <script src="DSAChatBoat.js"></script>
-</body>
+    <script src="DSAChatBoat.js"></script>
+  </body>
 </html>

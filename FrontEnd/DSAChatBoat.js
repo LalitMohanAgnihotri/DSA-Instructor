@@ -1,4 +1,4 @@
-/* 🔐 Protect page */
+/* Protect page */
 if (!localStorage.getItem("token")) {
   window.location.href = "login.html";
 }
@@ -14,7 +14,7 @@ const hamburger = document.getElementById("hamburger");
 
 const BACKEND_URL = "https://dsachatboat-backend.onrender.com/api/chat";
 
-// local dev:
+
 
 let isStreaming = false;
 let activeHistoryItem = null;

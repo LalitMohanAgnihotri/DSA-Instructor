@@ -20,7 +20,7 @@ async function signup() {
       return;
     }
 
-    // ✅ Auto login
+    // Auto login
     localStorage.setItem("token", data.token);
     window.location.href = "index.html";
 

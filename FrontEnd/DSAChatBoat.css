@@ -229,3 +229,65 @@ textarea {
 .main-content {
   pointer-events: auto;
 }
+.history-item.active {
+  background: rgba(124, 77, 255, 0.25);
+  color: #fff;
+}
+
+
+
+/* History list container */
+.history-list {
+  margin-top: 6px;
+  padding-left: 12px;
+  border-left: 2px solid var(--border-color);
+}
+
+/* Individual history item */
+.history-item {
+  padding: 8px 10px;
+  margin: 4px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+/* Hover */
+.history-item:hover {
+  background: rgba(124, 77, 255, 0.15);
+  color: #fff;
+}
+
+/* Active (you already had this, keep it) */
+.history-item.active {
+  background: rgba(124, 77, 255, 0.25);
+  color: #fff;
+}
+
+/* Make Logout look like other nav links */
+#logoutBtn {
+  all: unset;                 /* remove default button styles */
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px 24px;
+  cursor: pointer;
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: inherit;
+  display: flex;
+  align-items: center;
+}
+
+/* Hover effect same as nav-link */
+#logoutBtn:hover {
+  background: rgba(124, 77, 255, 0.15);
+  color: #fff;
+}
+
+/* Optional: subtle danger hint */
+#logoutBtn::after {
+  
+  margin-left: auto;
+  opacity: 0.5;
+}

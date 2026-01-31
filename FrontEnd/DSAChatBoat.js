@@ -10,18 +10,20 @@ const newChatBtn = document.getElementById("newChatBtn");
 const sidebar = document.getElementById("sidebar");
 const hamburger = document.getElementById("hamburger");
 
-const BACKEND_URL="https://dsachatboat-backend.onrender.com/api/chat";
 
 
-// local dev: 
+const BACKEND_URL = "https://dsachatboat-backend.onrender.com/api/chat";
+
+// local dev:
 
 let isStreaming = false;
+let activeHistoryItem = null;
+
+
 sendBtn.addEventListener("click", askAI);
 const historyList = document.getElementById("historyList");
 const historyBtn = document.getElementById("historyBtn");
-historyBtn.addEventListener("click", () => {
-  console.log("HISTORY CLICKED");
-});
+
 /* Toggle History */
 if (historyBtn) {
   historyBtn.addEventListener("click", () => {
@@ -29,24 +31,55 @@ if (historyBtn) {
     historyList.style.display = isHidden ? "block" : "none";
   });
 }
-
+function makeTitle(text) {
+  return text
+    .replace(/^(hi|hello|hey|please)\s+/i, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 35)
+    .replace(/^\w/, c => c.toUpperCase());
+}
 async function loadHistory() {
   try {
     const res = await fetch(`${BACKEND_URL}/history`, {
       headers: {
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     });
 
     const chats = await res.json();
     historyList.innerHTML = "";
-    console.log("Chats:", chats);
-    chats.forEach(chat => {
+
+    if (!Array.isArray(chats) || chats.length === 0) {
+      historyList.innerHTML = `
+        <div style="
+          padding: 10px;
+          font-size: 0.8rem;
+          color: #94a3b8;
+          text-align: center;
+        ">
+          No chat history yet
+        </div>
+      `;
+      return;
+    }
+
+    chats.forEach((chat) => {
       const item = document.createElement("div");
       item.className = "history-item";
-      item.textContent = chat.question.slice(0, 40) + "...";
+      item.textContent = makeTitle(chat.question);
 
       item.onclick = () => {
+        // remove previous active highlight
+        if (activeHistoryItem) {
+          activeHistoryItem.classList.remove("active");
+        }
+
+        // highlight current item
+        item.classList.add("active");
+        activeHistoryItem = item;
+
+        // load chat
         feed.innerHTML = "";
 
         const userMsg = document.createElement("div");
@@ -59,14 +92,11 @@ async function loadHistory() {
 
         feed.append(userMsg, aiMsg);
       };
-
       historyList.appendChild(item);
     });
-
   } catch (err) {
-    console.error("History load failed");
+    console.error("History load failed", err);
   }
-  
 }
 
 /* Auto-resize textarea */
@@ -76,7 +106,7 @@ textarea.addEventListener("input", () => {
 });
 
 /* Enter to send */
-textarea.addEventListener("keydown", e => {
+textarea.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && !e.shiftKey) {
     e.preventDefault();
     askAI();
@@ -84,12 +114,12 @@ textarea.addEventListener("keydown", e => {
 });
 
 /* Sidebar toggle */
-hamburger.addEventListener("click", e => {
+hamburger.addEventListener("click", (e) => {
   e.stopPropagation();
   sidebar.classList.toggle("open");
 });
 
-document.addEventListener("click", e => {
+document.addEventListener("click", (e) => {
   if (
     window.innerWidth <= 768 &&
     sidebar.classList.contains("open") &&
@@ -155,9 +185,9 @@ async function askAI() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: JSON.stringify({ text })
+      body: JSON.stringify({ text }),
     });
 
     const data = await res.json();
@@ -166,8 +196,8 @@ async function askAI() {
     aiMsg.textContent = "Error connecting to server.";
     isStreaming = false;
   }
-  loadHistory();
 }
+loadHistory();
 
 /* Logout */
 const logoutBtn = document.getElementById("logoutBtn");

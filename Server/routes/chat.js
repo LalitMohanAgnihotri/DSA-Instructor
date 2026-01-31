@@ -5,7 +5,7 @@ import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-/* 🔹 POST: Ask AI */
+/* POST: Ask AI */
 router.post("/", authMiddleware, async (req, res) => {
   const { text } = req.body;
 
@@ -49,7 +49,7 @@ router.post("/", authMiddleware, async (req, res) => {
   }
 });
 
-/* 🔹 GET: Chat history */
+/* GET: Chat history */
 router.get("/history", authMiddleware, async (req, res) => {
   try {
     const chats = await Chat.find({ userId: req.userId })
